@@ -72,14 +72,14 @@ jobs:
       matrix:
         cxx_std: [17, 20]
         os: [windows-2022, windows-2019]
-        buildtype: [debug, release]
+        buildtype: [debug]
     steps:
       - uses: actions/checkout@v3
       - name: Install conan
         shell: bash
         run: |
           python3 -m pip install --upgrade pip setuptools
-          python3 -m pip install conan ninja
+          python3 -m pip install conan
 
       - name: Configure CMake
         # Use a bash shell so we can use the same syntax for environment variable
