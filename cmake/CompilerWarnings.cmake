@@ -42,7 +42,6 @@ FUNCTION(SET_PROJECT_WARNINGS project_name)
         -Wunused # warn on anything being unused
         -Woverloaded-virtual # warn if you overload (not override) a virtual function
         -Wpedantic # warn if non-standard C++ is used
-        -Wconversion # warn on type conversions that may lose data
         -Wsign-conversion # warn on sign conversions
         -Wnull-dereference # warn if a null dereference is detected
         -Wdouble-promotion # warn if float is implicit promoted to double
@@ -66,7 +65,8 @@ FUNCTION(SET_PROJECT_WARNINGS project_name)
     IF(MSVC)
         SET(PROJECT_WARNINGS ${MSVC_WARNINGS})
     ELSEIF(CMAKE_CXX_COMPILER_ID MATCHES ".*Clang")
-        SET(PROJECT_WARNINGS ${CLANG_WARNINGS})
+        SET(PROJECT_WARNINGS ${CLANG_WARNINGS} -Wconversion # warn on type conversions that may lose data
+            )
     ELSEIF(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
         SET(PROJECT_WARNINGS ${GCC_WARNINGS})
     ELSE()
