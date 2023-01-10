@@ -187,7 +187,7 @@ namespace impl
             // special case for when chunk size is same as accumulator size.
             if constexpr(traits::ACCUMULATOR_BITS > traits::CHUNK_BITS) {
                 // shit crc left the size of the nibble
-                crc <<= traits::CHUNK_BITS;
+                crc = static_cast<TAccumulator>(static_cast<int>(crc) << static_cast<int>(traits::CHUNK_BITS));
 
                 // xor in the table data
                 crc ^= table[t];
