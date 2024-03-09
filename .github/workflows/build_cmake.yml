@@ -27,7 +27,9 @@ jobs:
                     {name: 'Clang 12', cpp: clang++-12, c: clang-12, pkgs: 'clang-12 llvm-12'},
                     {name: 'Clang 13', cpp: clang++-13, c: clang-13, pkgs: 'clang-13 llvm-13'},
                     {name: 'Clang 14', cpp: clang++-14, c: clang-14, pkgs: 'clang-14 llvm-14'},
-                    {name: 'Clang 15', cpp: clang++-15, c: clang-15, pkgs: 'clang-15 llvm-15'}
+                    {name: 'Clang 15', cpp: clang++-15, c: clang-15, pkgs: 'clang-15 llvm-15'},
+                    {name: 'Clang 16', cpp: clang++-16, c: clang-16, pkgs: 'clang-16 llvm-16'},
+                    {name: 'Clang 17', cpp: clang++-17, c: clang-17, pkgs: 'clang-17 llvm-17'}
                   ]
     steps:
     - uses: actions/checkout@v3
@@ -100,7 +102,7 @@ jobs:
         # conan 2 is not supported at the moment
         run: |
           python3 -m pip install --upgrade pip setuptools
-          python3 -m pip install conan~=1.0
+          python3 -m pip install conan
       - name: Create Build Environment
         # Some projects don't allow in-source building, so create a separate build directory
         # We'll use this as our working directory for all subsequent commands

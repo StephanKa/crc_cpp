@@ -1,5 +1,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.16)
 
+INCLUDE(cmake/Conan.cmake)
+
 PROJECT(crc_cpp CXX)
 SET(CMAKE_BUILD_PARALLEL_LEVEL 4)
 IF(NOT DEFINED CXX_STANDARD)
@@ -15,9 +17,7 @@ INCLUDE(cmake/PreventInSourceBuilds.cmake)
 FIND_PACKAGE(Python COMPONENTS Interpreter REQUIRED)
 
 # install PyPI Python packages using pip
-# Can't update to conan2 yet, not supported by clion or Conan.cmake, so force to 1.x
-# NOTE: also change .github/build_cmake.yml windows build process when fixed.
-EXECUTE_PROCESS(COMMAND ${Python_EXECUTABLE} -m pip install --user --upgrade pip setuptools jinja2 conan~=1.0)
+EXECUTE_PROCESS(COMMAND ${Python_EXECUTABLE} -m pip install --user --upgrade pip setuptools jinja2 conan)
 
 # Link this 'library' to set the c++ standard / compile-time options requested
 ADD_LIBRARY(project_options INTERFACE)
@@ -49,13 +49,6 @@ INCLUDE(cmake/StaticAnalyzers.cmake)
 
 OPTION(BUILD_SHARED_LIBS "Enable compilation of shared libraries" OFF)
 OPTION(ENABLE_TESTING "Enable Test Builds" ON)
-
-# Set up some extra Conan dependencies based on our needs before loading Conan
-SET(CONAN_EXTRA_REQUIRES "")
-SET(CONAN_EXTRA_OPTIONS "")
-
-INCLUDE(cmake/Conan.cmake)
-RUN_CONAN()
 
 IF(ENABLE_TESTING)
     ENABLE_TESTING()

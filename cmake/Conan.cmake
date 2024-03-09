@@ -1,22 +1,8 @@
-MACRO(RUN_CONAN)
-    # Download automatically, you can also just copy the conan.cmake file
-    IF(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
-        MESSAGE(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
-        file(DOWNLOAD "https://github.com/conan-io/cmake-conan/raw/0.18.1/conan.cmake" "${CMAKE_BINARY_DIR}/conan.cmake" TLS_VERIFY ON)
-    ENDIF()
+# Download automatically, you can also just copy the conan.cmake file
+IF(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
+    MESSAGE(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
+    FILE(DOWNLOAD "https://raw.githubusercontent.com/conan-io/cmake-conan/develop2/conan_provider.cmake" "${CMAKE_BINARY_DIR}/conan.cmake" TLS_VERIFY ON)
+ENDIF()
 
-    INCLUDE(${CMAKE_BINARY_DIR}/conan.cmake)
-
-    CONAN_CMAKE_RUN(
-            REQUIRES
-            ${CONAN_EXTRA_REQUIRES}
-            catch2/3.2.1
-            OPTIONS
-            ${CONAN_EXTRA_OPTIONS}
-            SETTINGS
-            compiler.cppstd=${CMAKE_CXX_STANDARD}
-            BASIC_SETUP
-            CMAKE_TARGETS # individual targets to link to
-            BUILD
-            missing)
-ENDMACRO()
+LIST(APPEND CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
+SET(CMAKE_PROJECT_TOP_LEVEL_INCLUDES "${CMAKE_BINARY_DIR}/conan.cmake")

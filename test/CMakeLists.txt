@@ -1,12 +1,10 @@
-# Automatically enable catch2 to generate ctest targets
-IF(CONAN_CATCH2_ROOT_DEBUG)
-    INCLUDE(${CONAN_CATCH2_ROOT_DEBUG}/lib/cmake/Catch2/Catch.cmake)
-ELSE()
-    INCLUDE(${CONAN_CATCH2_ROOT}/lib/cmake/Catch2/Catch.cmake)
-ENDIF()
+FIND_PACKAGE(Catch2 REQUIRED)
+
+INCLUDE(CTest)
+INCLUDE(Catch)
 
 ADD_EXECUTABLE(tests test.cpp)
-TARGET_LINK_LIBRARIES(tests PRIVATE project_warnings project_options CONAN_PKG::catch2)
+TARGET_LINK_LIBRARIES(tests PRIVATE project_warnings project_options Catch2::Catch2WithMain)
 TARGET_INCLUDE_DIRECTORIES(tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
 
 # automatically discover tests that are defined in catch based test files you can modify the unittests. Set TEST_PREFIX
