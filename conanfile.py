@@ -13,7 +13,7 @@ class ProjectConan(ConanFile):
 
     def configure(self):
         """Override the configure method and defines different requirements for different architectures."""
-        self.requires = conans.model.requires.Requirements(['catch2/3.4.0'])
+        self.requires = conans.model.requires.Requirements(['catch2/3.5.3'])
 
     def build(self):
         """Override the build method."""
