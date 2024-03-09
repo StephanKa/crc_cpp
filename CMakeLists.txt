@@ -1,5 +1,10 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.16)
 
+FIND_PACKAGE(Python COMPONENTS Interpreter REQUIRED)
+
+# install PyPI Python packages using pip
+EXECUTE_PROCESS(COMMAND ${Python_EXECUTABLE} -m pip install --user --upgrade pip setuptools jinja2 conan)
+
 INCLUDE(cmake/Conan.cmake)
 
 PROJECT(crc_cpp CXX)
@@ -13,11 +18,6 @@ MESSAGE("Using C++ standard ${CMAKE_CXX_STANDARD}")
 
 INCLUDE(cmake/StandardProjectSettings.cmake)
 INCLUDE(cmake/PreventInSourceBuilds.cmake)
-
-FIND_PACKAGE(Python COMPONENTS Interpreter REQUIRED)
-
-# install PyPI Python packages using pip
-EXECUTE_PROCESS(COMMAND ${Python_EXECUTABLE} -m pip install --user --upgrade pip setuptools jinja2 conan)
 
 # Link this 'library' to set the c++ standard / compile-time options requested
 ADD_LIBRARY(project_options INTERFACE)
